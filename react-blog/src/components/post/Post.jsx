@@ -1,23 +1,23 @@
 import './post.css';
-import image1 from '../../assets/img/img1.jpg'
-export default function Post() {
+import {Link} from 'react-router-dom'
+export default function Post({post}) {
+  const PF = "http://localhost:5000/images/"
   return (
     <div className='post'>
-        <img className="postImg" src={image1} alt="" />
+      {post.photo && <img className="postImg" src={PF+post.photo} alt="" />}
+        
         <div className="postInfo">
             <div className="postCategory">
-                <span className="postCat">Music </span>
-                <span className="postCat">Life</span>
+                {post.categories.map((c)=>(
+                  <span className="postCat">{c.name} </span>
+                ))}
             </div>
-            <span className="postTitle">
-                Good thing happens with good people.
-            </span>
-            <hr /><span className="postDate">1 min ago</span>
+              <Link to={`/post/${post._id}`} className='link'>
+                <span className="postTitle">{post.title}</span>
+              </Link>
+            <hr /><span className="postDate">{new Date(post.createdAt).toDateString()}</span>
         </div>
-        <p className="postDesc">
-        Unveiling the Extraordinary: A Journey into the Life of people.
-        At the core of [Your Name]'s being lies an unwavering passion for life and a relentless pursuit of their dreams. Whether it's delving into the realms of art, science, or social justice, they embrace each endeavor with an insatiable curiosity and an unyielding dedication to make a difference. Their drive to excel and leave a lasting impact on the world is nothing short of awe-inspiring.
-        </p>
+        <p className="postDesc">{post.desc}</p>
     </div>
   )
 }

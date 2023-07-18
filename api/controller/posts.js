@@ -43,7 +43,7 @@ module.exports.delete = async function(req,res){
             res.status(200).json("Post Deleted");
 
         }else{
-            res.status(404).json("You can update only your post");
+            res.status(404).json("You can delete only your post");
         }
 
     }
@@ -79,8 +79,7 @@ module.exports.getAll = async function(req,res){
        else{
         posts = await Post.find();
        }
-
-       req.status(200).json(posts);
+       res.status(200).json(posts);
     }
     catch(err){
         console.log("Error occured in finding one post", err);
@@ -88,4 +87,19 @@ module.exports.getAll = async function(req,res){
     }
 }
 
+
+// module.exports.deleteAll = async function(req,res){
+//     try{
+        
+//            await Post.deleteMany({});
+//             res.status(200).json(" All Post Deleted");
+
+       
+
+//     }
+//     catch(err){
+//         console.log("Error occured in Delete", err);
+//         res.status(500).json(err);
+//     }
+// }
 
